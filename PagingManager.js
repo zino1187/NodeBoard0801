@@ -12,6 +12,7 @@ class PagingManager{
 		this.blockSize=10;//블럭당 보여질 페이지 수
 		this.firstPage=this.currentPage-(this.currentPage-1)%this.blockSize;//블럭당 포문의 시작 값
 		this.lastPage=this.firstPage+(this.blockSize-1); //블럭당 포문의 끝 값
+		this.num=this.totalRecord - ((this.currentPage-1)*this.pageSize); //페이지당 시작 번호
 	}	
 }
 //내가 정의한 클래스를 nodejs의 모듈화 시키기!! 사용자정의 모듈

@@ -33,22 +33,35 @@ a{text-decoration:none;}
 			<td>조회수</td>
 		</tr>
 		<%for(var i=1;i<=pm.pageSize;i++){%>
+		<%if(pm.num<1)break;%>
 		<tr>
-			<td>10</td>
+			<td><%=pm.num%></td>
 			<td>홍길동</td>
 			<td>제목이비다.</td>
 			<td>2018-08-01</td>
 			<td>34</td>
 		</tr>
+		<%pm.num--;%>
 		<%}%>
 		<tr>
 			<td colspan="5" align="center">
-				◀
+				<%if(pm.firstPage-1>1){%>
+					<a href="/list?currentPage=<%=pm.firstPage-1%>">◀</a>
+				<%}else{%>
+					<a href="javascript:alert('처음 페이지입니다');">◀</a>
+				<%}%>
+
 				<%for(var i=pm.firstPage;i<=pm.lastPage;i++){%>
 				<%if(i>pm.totalPage)break;%>
 				<a <%if(parseInt(pm.currentPage)==i){%>class="numStyle"<%}%>   href="/list?currentPage=<%=i%>">[<%=i%>]</a> 
 				<%}%>
-				<a href="/list?currentPage=<%=pm.lastPage+1%>">▶</a>
+
+				<%if(pm.lastPage+1 < pm.totalPage){%>
+					<a href="/list?currentPage=<%=pm.lastPage+1%>">▶</a>
+				<%}else{%>
+					<a href="javascript:alert('마지막 페이지입니다');">▶</a>
+				<%}%>
+
 			</td>
 		</tr>
 	</table>
