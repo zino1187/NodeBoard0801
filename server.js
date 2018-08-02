@@ -5,11 +5,17 @@ var ejs=require("ejs"); //html 문서내에서 서버에서 실행되는
 								//모듈..
 var PagingManager=require("./PagingManager.js");
 
+//post 로 전송된 데이터를 해석하는 모듈~~
+var bodyParser=require("body-parser");
+
 var app=express();
+
 var server=http.createServer(app);
 
 //static을 지정하면 정적파일에까지 라우팅 필요없다
 app.use(express.static(__dirname));
+app.use(bodyParser.urlencoded({extended:true}));
+app.use(bodyParser.json());
 
 //리스트 요청에 대한 처리...
 //웹브라우저가 서버에 요청시 요청방법이 총 5가지가 지원
@@ -29,6 +35,18 @@ app.get("/list", function(request, response){
 		}));
 	});
 });
+
+//글 등록 요청이 들어오면....
+app.post("/regist", function(request, response){
+	
+	console.log(request.body.writer);
+	console.log(request.body.title);
+	console.log(request.body.content);
+
+	response.writeHead(200, {"Content-Type":"text/html"});
+	response.end("글쓰기 요청 처리 완료");
+});
+
 
 server.listen(9000, function(){
 	console.log("웹서버 가동");
