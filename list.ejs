@@ -45,9 +45,10 @@ a{text-decoration:none;}
 			<td colspan="5" align="center">
 				◀
 				<%for(var i=pm.firstPage;i<=pm.lastPage;i++){%>
+				<%if(i>pm.totalPage)break;%>
 				<a <%if(parseInt(pm.currentPage)==i){%>class="numStyle"<%}%>   href="/list?currentPage=<%=i%>">[<%=i%>]</a> 
 				<%}%>
-				▶
+				<a href="/list?currentPage=<%=pm.lastPage+1%>">▶</a>
 			</td>
 		</tr>
 	</table>
