@@ -1,0 +1,58 @@
+<%="currentPage is "+pm.currentPage%><br>
+<%="totalRecord is "+pm.totalRecord%><br>
+<%="pageSize is "+pm.pageSize%><br>
+<%="totalPage is "+pm.totalPage%><br>
+<%="blockSize is "+pm.blockSize%><br>
+<%="firstPage is "+pm.firstPage%><br>
+<%="lastPage is "+pm.lastPage%><br>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>게시판 목록</title>
+<style>
+a{text-decoration:none;}
+.numStyle{
+	font-size:24px;
+	color:red;
+	font-weight:bold;
+}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+
+</script>
+</head>
+<body>
+	<table width="100%" border="1px">
+		<tr>
+			<td>No</td>
+			<td>작성자</td>
+			<td>제목</td>
+			<td>작성일</td>
+			<td>조회수</td>
+		</tr>
+		<%for(var i=1;i<=pm.pageSize;i++){%>
+		<tr>
+			<td>10</td>
+			<td>홍길동</td>
+			<td>제목이비다.</td>
+			<td>2018-08-01</td>
+			<td>34</td>
+		</tr>
+		<%}%>
+		<tr>
+			<td colspan="5" align="center">
+				◀
+				<%for(var i=pm.firstPage;i<=pm.lastPage;i++){%>
+				<a <%if(parseInt(pm.currentPage)==i){%>class="numStyle"<%}%>   href="/list?currentPage=<%=i%>">[<%=i%>]</a> 
+				<%}%>
+				▶
+			</td>
+		</tr>
+	</table>
+</body>
+</html>
+
+
+
