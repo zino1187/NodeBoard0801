@@ -58,7 +58,8 @@ app.get("/list", function(request, response){
 			fs.readFile("list.ejs","utf-8", function(error, data){
 				response.writeHead(200,{"Content-Type":"text/html"});
 				response.end(ejs.render(data,{
-					pm:pm
+					pm:pm,
+					result:result
 				}));
 			});
 		}
