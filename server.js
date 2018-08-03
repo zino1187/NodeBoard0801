@@ -7,6 +7,7 @@ var PagingManager=require("./PagingManager.js");
 
 //post 로 전송된 데이터를 해석하는 모듈~~
 var bodyParser=require("body-parser");
+var mysql=require("mysql");
 
 var app=express();
 
@@ -16,6 +17,25 @@ var server=http.createServer(app);
 app.use(express.static(__dirname));
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
+
+//노드서버를 가동하면 기본적으로 db 접속해놓자!!
+
+var con=mysql.createConnection({
+	host:"localhost",
+	user:"root",
+	password:"",
+	database:"iot"
+});
+
+//접속!!!
+con.connect(function(error){
+	if(error){
+		console.log("접속실패 ㅠㅠ....");
+	}else{
+		console.log("접속 성공!!");
+	}
+});
+
 
 //리스트 요청에 대한 처리...
 //웹브라우저가 서버에 요청시 요청방법이 총 5가지가 지원
@@ -43,8 +63,27 @@ app.post("/regist", function(request, response){
 	console.log(request.body.title);
 	console.log(request.body.content);
 
-	response.writeHead(200, {"Content-Type":"text/html"});
-	response.end("글쓰기 요청 처리 완료");
+	var writer=request.body.writer;
+	var title=request.body.title;
+	var content=request.body.content;
+
+	//글 등록
+	var sql="insert into notice(writer,title,content)";
+	sql=sql+" values('"+writer+"','"+title+"','"+content+"')";
+	
+	con.query(sql, function(error, result){
+		if(error){
+			console.log("입력실패 ㅜㅜ", error);
+		}else{
+			console.log("입력성공", result);
+		}
+	});
+
+	console.log(sql);
+	
+	//요청을 /list로 전환
+	response.writeHead(302, {"Location":"/list"});
+	response.end();
 });
 
 

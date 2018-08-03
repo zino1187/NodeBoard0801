@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>글등록</title>
+<style>
+.wrapper{
+	width:600px;
+	margin:auto;
+}
+.wrapper input,textarea{
+	width:98%;
+	font-size:25px;
+}
+textarea{
+	height:300px;
+}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+function regist(){
+	//폼양식을 모두 전송하자!!
+	form1.action="/regist";//url
+	form1.submit(); //이 시점에 전송이 발생!!
+}
+</script>
+</head>
+<body>
+	<div class="wrapper">
+		<form name="form1" method="post">
+			<div>
+				<input type="text" name="writer" placeholder="작성자 입력">
+			</div>
+			<div>
+				<input type="text" name="title" placeholder="제목입력">
+			</div>
+			<div>
+				<textarea name="content"></textarea>
+			</div>
+			<div>
+				<input type="button" value="등록하기" onClick="regist()"/>
+		</div>
+		</form>
+	</div>
+</body>
+</html>
