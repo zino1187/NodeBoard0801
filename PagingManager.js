@@ -1,12 +1,12 @@
 class PagingManager{
-	constructor(request){
+	constructor(request, total){
 		this.currentPage=1; //현재 보고 있는 페이지
 		//누군가가 페이지 링크를 누르면, 그 넘어온 값으로 대체하자!!
 		if(request.query.currentPage !=undefined){
 			this.currentPage=request.query.currentPage;
 		}
 		//currentPage=넘겨받은 코드;
-		this.totalRecord=26;//총 레코드 수 
+		this.totalRecord=total;//총 레코드 수 
 		this.pageSize=10; //페이지당 보여질 레코드 수	
 		this.totalPage=Math.ceil(this.totalRecord/this.pageSize);
 		this.blockSize=10;//블럭당 보여질 페이지 수

@@ -46,14 +46,24 @@ con.connect(function(error){
 app.get("/list", function(request, response){
 	console.log(request.query.currentPage);
 	
-	var pm= new PagingManager(request);
+	//레코드 가져오기!!!
+	var sql="select * from notice order by notice_id desc";
+	con.query(sql, function(error, result, fields){
+		if(error){
+			console.log("조회 실패!!", error);
+		}else{
+			console.log(result);
+			var pm= new PagingManager(request, result.length);
 
-	fs.readFile("list.ejs","utf-8", function(error, data){
-		response.writeHead(200,{"Content-Type":"text/html"});
-		response.end(ejs.render(data,{
-			pm:pm
-		}));
+			fs.readFile("list.ejs","utf-8", function(error, data){
+				response.writeHead(200,{"Content-Type":"text/html"});
+				response.end(ejs.render(data,{
+					pm:pm
+				}));
+			});
+		}
 	});
+
 });
 
 //글 등록 요청이 들어오면....
