@@ -122,6 +122,35 @@ app.get("/detail", function(request, response){
 
 });
 
+//수정요청 처리 
+app.post("/edit", function(request, response){
+	//클라이언트가 전송한 파라미터 받기!!!
+	console.log(request.body);
+
+	var notice_id=request.body.notice_id;
+	var writer=request.body.writer;
+	var title=request.body.title;
+	var content=request.body.content;
+
+	var sql="update notice set writer='"+writer+"', title='"+title+"',content='"+content+"'";
+	sql+=" where notice_id="+notice_id;
+	
+	console.log(sql);
+
+	con.query(sql, function(error, result){
+		if(error){
+			console.log(error);
+		}
+		console.log(result);
+
+		//수정한 글을 확인시켜 주기 위해 /detail 방향전환!!
+		response.writeHead(302, {"Location":"/detail?notice_id="+notice_id});
+		response.end();
+	});
+
+});
+
+
 server.listen(9000, function(){
 	console.log("웹서버 가동");
 });
