@@ -1,5 +1,6 @@
 class PagingManager{
 	constructor(request, total){
+		//
 		this.currentPage=1; //현재 보고 있는 페이지
 		//누군가가 페이지 링크를 누르면, 그 넘어온 값으로 대체하자!!
 		if(request.query.currentPage !=undefined){

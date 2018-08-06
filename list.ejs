@@ -34,14 +34,18 @@ a{text-decoration:none;}
 		</tr>
 		<%for(var i=1;i<=pm.pageSize;i++){%>
 		<%if(pm.num<1)break;%>
+		<%
+			var record=result[pm.curPos];
+		%>
 		<tr>
 			<td><%=pm.num%></td>
-			<td>홍길동</td>
-			<td>제목이비다.</td>
-			<td>2018-08-01</td>
-			<td>34</td>
+			<td><%=record.writer%></td>
+			<td><%=record.title%></td>
+			<td><%=record.regdate%></td>
+			<td><%=record.hit%></td>
 		</tr>
 		<%pm.num--;%>
+		<%pm.curPos++;%>
 		<%}%>
 		<tr>
 			<td colspan="5" align="center">
