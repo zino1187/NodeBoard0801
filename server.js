@@ -47,7 +47,7 @@ app.get("/list", function(request, response){
 	console.log(request.query.currentPage);
 	
 	//레코드 가져오기!!!
-	var sql="select * from notice order by notice_id desc";
+	var sql="select notice_id, writer,title, date_format(regdate, '%Y-%m-%d') as regdate,hit from notice order by notice_id desc";
 	con.query(sql, function(error, result, fields){
 		if(error){
 			console.log("조회 실패!!", error);
@@ -97,6 +97,30 @@ app.post("/regist", function(request, response){
 	response.end();
 });
 
+//상세보기 요청 처리 
+app.get("/detail", function(request, response){
+	//클라이언트가 보낸 get방식의 데이터를 받아내자!!
+	console.log(request.query);
+	var notice_id=request.query.notice_id;
+
+	var sql="select * from notice where notice_id="+notice_id;
+	console.log(sql);
+
+	con.query(sql, function(error, result, fields){
+		if(error){
+			console.log(error);
+		}
+		//detail.ejs에게 보내자!!
+		console.log(result);
+		fs.readFile("detail.ejs","utf-8", function(err, data){
+			response.writeHead(200,{"Content-Type":"text/html"});
+			response.end(ejs.render(data, {
+				result:result[0]
+			}));
+		});
+	});
+
+});
 
 server.listen(9000, function(){
 	console.log("웹서버 가동");
